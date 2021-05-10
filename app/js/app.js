@@ -1,4 +1,5 @@
 window.onload = () => {
-    console.log(`%c JavaScript works!`,
-        `background-color: yellow; font-weight: bold;`);
+    let diamondSize = prompt("Please enter the size of the diamond");
+    let diamondSizeInt = parseInt(diamondSize);
+    console.log(diamondSizeInt + 20);
 };
