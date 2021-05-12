@@ -88,8 +88,7 @@ let serve = () => {
              */
             baseDir: [
                 `index.html`,
-                `temp`,
-                `app`
+                `temp`
             ]
         }
     });
