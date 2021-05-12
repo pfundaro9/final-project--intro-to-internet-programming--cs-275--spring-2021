@@ -1,25 +1,17 @@
-:root {
-  --font-size--default: 1.1rem;
-  --color--text: #222;
-  --background-color--primary: #fff;
-  --font--headings: 'Orelega One', cursive;
-  --font--reading: 'Heebo', sans-serif;
-  font-size: var(--font-size--default);
+@keyframes sideToSide {
+  0%,
+  100% {
+    left: 0;
+  }
+
+  50% {
+    left: 100%;
+  }
 }
 
-body {
-  background-color: var(--background-color--primary);
-  color: var(--color--text);
-  font-family: var(--font--reading);
-  font-weight: 100;
-  text-align: center;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font--headings);
+.diamondContainer {
+  border-style: solid;
+  display: inline-block;
+  position: relative;
+  animation: sideToSide 5s infinite;
 }
