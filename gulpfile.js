@@ -13,18 +13,18 @@ const jsLinter = require(`gulp-eslint`);
 const reload = browserSync.reload;
 
 let validateHTML = () => {
-    return src(`app/html/*.html`)
+    return src(`index.html`)
         .pipe(htmlValidator({"verbose": true}));
 };
 
 let compressHTML = () => {
-    return src(`app/html/*.html`)
+    return src(`index.html`)
         .pipe(htmlCompressor({collapseWhitespace: true}))
         .pipe(dest(`prod`));
 };
 
 let lintCSS = () => {
-    return src(`app/css/*.css`)
+    return src(`app/css/style.css`)
         .pipe(cssLinter({
             failAfterError: true,
             reporters: [{
@@ -35,7 +35,7 @@ let lintCSS = () => {
 };
 
 let compressCSS = () => {
-    return src(`app/css/*.css`)
+    return src(`app/css/style.css`)
         .pipe(cssCompressor({"debug": true}, (details) => {
             console.log(`\n\tOriginal CSS file size: ` +
                 `${details.name}: ${details.stats.originalSize}`);
@@ -46,19 +46,19 @@ let compressCSS = () => {
 };
 
 let lintJS = () => {
-    return src(`app/js/*.js`)
+    return src(`app/js/app.js`)
         .pipe(jsLinter(`.eslintrc.json`))
         .pipe(jsLinter.formatEach(`compact`));
 };
 
 let transpileJSForDev = () => {
-    return src(`app/js/*.js`)
+    return src(`app/js/app.js`)
         .pipe(babel())
         .pipe(dest(`temp/js`));
 };
 
 let transpileJSForProd = () => {
-    return src(`app/js/*.js`)
+    return src(`app/js/app.js`)
         .pipe(babel())
         .pipe(jsCompressor())
         .pipe(dest(`prod/js`));
@@ -87,22 +87,22 @@ let serve = () => {
              * 3. And, finally, retrieve CSS from the `app/css` directory
              */
             baseDir: [
-                `app/html`,
+                `index.html`,
                 `temp`,
                 `app`
             ]
         }
     });
 
-    watch(`app/js/*.js`,
+    watch(`app/js/app.js`,
         series(lintJS, transpileJSForDev)
     ).on(`change`, reload);
 
-    watch(`app/css/*.css`,
+    watch(`app/css/style.css`,
         series(lintCSS)
     ).on(`change`, reload);
 
-    watch(`app/html/*.html`,
+    watch(`index.html`,
         series(validateHTML)
     ).on(`change`, reload);
 
